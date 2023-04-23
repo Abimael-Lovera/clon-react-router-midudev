@@ -33,7 +33,7 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
   })
 
   // concatenando las rutas que recibe Router con el children
-  const routesToUse = routesFromChildren.concat(routes)
+  const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
   // console.log(routesToUse)
 
   const Page = routesToUse.find(({ path }) => {
