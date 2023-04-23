@@ -1,11 +1,14 @@
+import { Suspense, lazy } from 'react'
+
 import './App.css'
-import HomePage from './pages/Home.jsx'
-import AboutPage from './pages/About.jsx'
-import SearchPage from './pages/Search'
+import SearchPage from './pages/Search' // import estatico se carga siempre
 
 import { Router } from './Router'
 import { Page404 } from './pages/404'
 import { Route } from './Route'
+
+const HomePage = lazy(() => import('./pages/Home'))
+const AboutPage = lazy(() => import('./pages/About')) // import dinamico com lazy loading
 
 const appRoutes = [
   {
@@ -17,10 +20,12 @@ const appRoutes = [
 function App () {
   return (
     <main>
-      <Router routes={appRoutes} defaultComponent={Page404}>
-        <Route path='/' Component={HomePage} />
-        <Route path='/about' Component={AboutPage} />
-      </Router>
+      <Suspense fallback={<div>Loading... </div>}>{/* utilizado para poder renderizar el import dinamico de lazy */}
+        <Router routes={appRoutes} defaultComponent={Page404}>
+          <Route path='/' Component={HomePage} />
+          <Route path='/about' Component={AboutPage} />
+        </Router>
+      </Suspense>
     </main>
   )
 }
