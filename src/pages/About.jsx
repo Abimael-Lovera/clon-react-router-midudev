@@ -1,12 +1,34 @@
 import { Link } from '../Link.jsx'
 
-export default function AboutPage () {
+const i18n = {
+  es: {
+    title: 'Sobre nosotros',
+    button: 'Ir a la Home',
+    description: 'Hola! Estoy creando un clon de React Router'
+  },
+  en: {
+    title: 'About us',
+    button: 'Go to home page',
+    description: 'Hi! I am creating a clone of React Router'
+  }
+}
+
+const useI18n = (lang) => {
+  console.log(i18n[lang])
+
+  return i18n[lang] || i18n.en
+}
+
+export default function AboutPage ({ routeParams }) {
+  const i18n = useI18n(routeParams.lang ?? 'es')
   return (
     <>
-      <h1>About</h1>
+      <h1>{i18n.title}</h1>
       <img src='https://randomuser.me/api/portraits/men/11.jpg' alt='' />
-      <p>Hola! Me llamo Abimael Lovera y estoy creando un clon de React Router.</p>
-      <Link to='/'>Ir a la Home </Link>
+      <p>
+        {i18n.description}
+      </p>
+      <Link to='/'>{i18n.button}</Link>
     </>
   )
 }

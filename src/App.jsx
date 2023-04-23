@@ -12,6 +12,10 @@ const AboutPage = lazy(() => import('./pages/About')) // import dinamico com laz
 
 const appRoutes = [
   {
+    path: '/:lang/about',
+    Component: AboutPage
+  },
+  {
     path: '/search/:query',
     Component: SearchPage
   }
